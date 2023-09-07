@@ -3,6 +3,7 @@ let input = document.querySelector('.input-field')
 let clear = document.querySelector('.clear')
 let numbers = document.querySelectorAll('.number')
 let calc = document.querySelector('.calculate')
+
 let arr = []
 arr[1] = null
 
@@ -14,7 +15,7 @@ for (let i = 0; i < numbers.length; i++) {
     
 }
 
-clear.onclick = () => input.value = ''
+clear.onclick = () =>{ input.value = '' , arr = []}
 calc.onclick = () => calculate()
 
 function calculate(){
@@ -39,33 +40,36 @@ function calculate(){
     input.value = sum
 
     arr[0] = sum
-    return sum
 }
 
 function addNumber(n){
     input.value += n
 }
 
-let operators = ['=' , '+' ,'x', '-' , '/']
 function operator(e){
 
     let after_op = input.value.slice(input.value.indexOf(arr[1]) + 2)
 
-    if (isNaN( after_op)){
+    if (isNaN(input.value)){
 
-        arr[2] = after_op
+        if (isNaN(after_op)){
 
-        input.value = `${calculate()} ${e} `
+        }
+        else {
+            calculate()
+            console.log('here')
+            input.value += ` ${e} `
+            arr[1] = e
+        }
     }
-    else {
 
+    else {
+        console.log('else')
         arr[0] = input.value
         arr[1] = e
+
         input.value += ` ${e} `
     }
-
-    console.log(arr)
- 
 }
 
 for (let i = 0; i < btns.length; i++) {
